@@ -5,9 +5,20 @@ namespace NeoCasual.GoingHyper
     public class ShavingsView : MonoBehaviour
     {
         public float swipeDistanceToRotation = 20f;
-        [Range (0f, 1f)] public float minDeltaSwipePosX = 0.05f;
+        [Range (0f, 1f)]
+        public float minDeltaSwipePosX = 0.025f;
+
+        [SerializeField]
+        private FallingIce _fallingIcePrefab;
+        [SerializeField]
+        public float _rotForceThreshold = 25;
+        [SerializeField]
+        public int _perFallingIceCount = 5;
+        [SerializeField]
+        private Transform _fallingIceRoot;
 
         private Vector3 _prevHoldPos;
+        private float _rotPosPotential;
 
         public void OnStartSwiping (Vector2 position)
         {
@@ -26,6 +37,20 @@ namespace NeoCasual.GoingHyper
             }
 
             transform.eulerAngles += rotationForce;
+
+            _rotPosPotential += rotationForce.y;
+
+            if (_rotPosPotential > _rotForceThreshold)
+            {
+                float fallenIceCount = _rotPosPotential % _rotForceThreshold;
+                for (int i = 0; i < fallenIceCount; i++)
+                {
+                    var fallingIce = Instantiate(_fallingIcePrefab, _fallingIceRoot);
+                    fallingIce.Drop(_fallingIceRoot.position, _perFallingIceCount);
+                }
+
+                _rotPosPotential = 0;
+            }
         }
     }
 }

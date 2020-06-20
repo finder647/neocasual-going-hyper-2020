@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace IceShave
+namespace NeoCasual.GoingHyper
 {
     public class IceFallingManagerTest : MonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace IceShave
             for (int i = 0; i < _fallingIcePerClick; i++)
             {
                 var fallingIce = Instantiate(_fallingIce, null);
-                fallingIce.Drop(position);
+                fallingIce.Drop(position, 3);
             }            
         }
 
