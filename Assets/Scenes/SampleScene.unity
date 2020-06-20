@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d33037066299572499219893083f2e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swipeDistanceToRotation: 20
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
