@@ -1,4 +1,5 @@
 ﻿using NeoCasual.GoingHyper.Inputs;
+using NeoCasual.GoingHyper.MeshSlice;
 using UnityEngine;
 
 namespace NeoCasual.GoingHyper
@@ -8,10 +9,12 @@ namespace NeoCasual.GoingHyper
         [SerializeField] private ShavingsView _shavings;
 
         private InputManager _input;
+        private MeshSlicer _slicer;
 
         private void Awake ()
         {
             _input = new InputManager ();
+            _slicer = new MeshSlicer ();
         }
 
         private void Start ()
