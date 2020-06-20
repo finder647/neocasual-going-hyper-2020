@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 
-namespace IceShave
+namespace NeoCasual.GoingHyper
 {
     public class FallenIce : MonoBehaviour
     {
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Fallen Ice") && collision.contactCount > 0)
-            {
-                var newInstance = Instantiate(this, transform.parent);
-                newInstance.transform.position = collision.GetContact(0).point;
+        [SerializeField]
+        private Rigidbody _rb;
+        [SerializeField]
+        private Transform _meshTransform;
 
-                Destroy(collision.gameObject);
-            }
+        public void Drop(Vector3 position, int spawnIndex)
+        {
+            if (spawnIndex > 0)
+                position.x += _meshTransform.localScale.x * (spawnIndex % 2 != 0 ? 1 : -1);
+
+            _rb.position = position;
         }
     }
 }
