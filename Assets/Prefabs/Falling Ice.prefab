@@ -159,6 +159,6 @@ MonoBehaviour:
   _rb: {fileID: 610264428748926868}
   _layers:
     serializedVersion: 2
-    m_Bits: 567
-  _fallenIcePrefab: {fileID: 3847304544200761552, guid: 34fb72dbb6cd6aa45982cd88224be936,
+    m_Bits: 2103
+  _fallenIcePrefab: {fileID: 2054922695444433493, guid: 34fb72dbb6cd6aa45982cd88224be936,
     type: 3}

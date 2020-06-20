@@ -9,6 +9,8 @@ namespace NeoCasual.GoingHyper
         public float minDeltaSwipePosX = 0.025f;
 
         [SerializeField]
+        private Transform _shaveHandle;
+        [SerializeField]
         private FallingIce _fallingIcePrefab;
         [SerializeField]
         public float _rotForceThreshold = 25;
@@ -36,13 +38,13 @@ namespace NeoCasual.GoingHyper
                 _prevHoldPos = position;
             }
 
-            transform.eulerAngles += rotationForce;
+            _shaveHandle.transform.eulerAngles += rotationForce;
 
             _rotPosPotential += rotationForce.y;
 
             if (_rotPosPotential > _rotForceThreshold)
             {
-                float fallenIceCount = _rotPosPotential % _rotForceThreshold;
+                float fallenIceCount = _rotPosPotential / _rotForceThreshold;
                 for (int i = 0; i < fallenIceCount; i++)
                 {
                     var fallingIce = Instantiate(_fallingIcePrefab, _fallingIceRoot);

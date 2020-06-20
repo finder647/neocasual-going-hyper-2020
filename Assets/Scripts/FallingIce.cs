@@ -11,7 +11,7 @@ namespace NeoCasual.GoingHyper
         [SerializeField]
         private LayerMask _layers;
         [SerializeField]
-        private GameObject _fallenIcePrefab;
+        private FallenIce _fallenIcePrefab;
 
         private int _fallenIceCount;
         private bool _hasFallen;
@@ -37,8 +37,8 @@ namespace NeoCasual.GoingHyper
 
                 for (int i = 0; i < _fallenIceCount; i++)
                 {
-                    var newInstance = Instantiate(_fallenIcePrefab, collision.transform.parent);
-                    newInstance.transform.position = collision.GetContact(0).point;
+                    var fallenIce = Instantiate(_fallenIcePrefab, collision.transform.parent);
+                    fallenIce.Drop(collision.GetContact(0).point, i);
                 }                
             }
         }
