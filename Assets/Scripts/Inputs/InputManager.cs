@@ -54,8 +54,8 @@ namespace NeoCasual.GoingHyper.Inputs
         {
             _mousePos = Input.mousePosition;
 
-            _swipeDistance.x = (_mousePos.x - _mouseOrigin.x) / Screen.height;
-            _swipeDistance.y = (_mousePos.y - _mouseOrigin.y) / Screen.width;
+            _swipeDistance.x = (_mousePos.x - _mouseOrigin.x) / Screen.width;
+            _swipeDistance.y = (_mousePos.y - _mouseOrigin.y) / Screen.height;
 
             bool isValidSwipe = Mathf.Abs (_swipeDistance.x) > _config.SwipeMinDetectDistance ||
                 Mathf.Abs (_swipeDistance.y) > _config.SwipeMinDetectDistance;
