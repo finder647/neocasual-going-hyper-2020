@@ -4,8 +4,10 @@ namespace NeoCasual.GoingHyper
 {
     public class ShavingsView : MonoBehaviour
     {
-        public float swipeDistanceToRotation = 20f;
-        [Range (0f, 1f)] public float minDeltaSwipePosX = 0.05f;
+        public float SwipeDistanceToRotation = 20f;
+        [Range (0f, 1f)] public float MinDeltaSwipePosX = 0.05f;
+
+        public Transform HandleTransform;
 
         private Vector3 _prevHoldPos;
 
@@ -19,13 +21,13 @@ namespace NeoCasual.GoingHyper
             float deltaPosX = Mathf.Abs (_prevHoldPos.x - position.x) / Screen.width;
             Vector3 rotationForce = Vector3.zero;
 
-            if (deltaPosX > minDeltaSwipePosX)
+            if (deltaPosX > MinDeltaSwipePosX)
             {
-                rotationForce = new Vector3 (0f, deltaPosX * swipeDistanceToRotation, 0f);
+                rotationForce = new Vector3 (0f, deltaPosX * SwipeDistanceToRotation, 0f);
                 _prevHoldPos = position;
             }
 
-            transform.eulerAngles += rotationForce;
+            HandleTransform.eulerAngles += rotationForce;
         }
     }
 }
