@@ -5,6 +5,8 @@ namespace NeoCasual.GoingHyper
 {
     public class Main : MonoBehaviour
     {
+        [SerializeField] private ShavingsView _shavings;
+
         private InputManager _input;
 
         private void Awake ()
@@ -24,24 +26,8 @@ namespace NeoCasual.GoingHyper
 
         private void CommunicateEvent ()
         {
-            _input.OnStartSwiping += OnStartSwiping;
-            _input.OnSwiping += OnSwiping;
-            _input.OnFinishSwiping += OnFinishSwiping;
-        }
-
-        private void OnStartSwiping (Vector2 position)
-        {
-            Debug.Log ("Start Swipe: " + position);
-        }
-
-        private void OnSwiping (Vector2 position, Vector2 distance)
-        {
-            Debug.Log ("Swiping: " + position + ", " + distance);
-        }
-
-        private void OnFinishSwiping (Vector2 position)
-        {
-            Debug.Log ("Finish Swiping: " + position);
+            _input.OnStartSwiping += _shavings.OnStartSwiping;
+            _input.OnSwiping += _shavings.OnSwiping;
         }
     }
 }
