@@ -77,5 +77,14 @@ namespace NeoCasual.GoingHyper.UIs
         {
             _progressBarRect.DOAnchorPosX (-200f, 0.25f);
         }
+
+        public void ShowButton (Button button)
+        {
+            button.gameObject.SetActive (true);
+
+            DOTween.Kill (button);
+            button.transform.localScale = Vector3.zero;
+            button.transform.DOScale (1f, 0.5f).SetEase (Ease.OutBack, 2f);
+        }
     }
 }

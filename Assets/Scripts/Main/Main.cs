@@ -65,7 +65,7 @@ namespace NeoCasual.GoingHyper
 
             _fillResult.OnShowcaseStarted += () =>
             {
-                (_levelIndex == _maxLevel - 1 ? _homeButton : _nextButton).gameObject.SetActive (true);
+                _mainUI.ShowButton (_levelIndex == _maxLevel - 1 ? _homeButton : _nextButton);
                 _currentState = GameState.AfterResult;
             };
 
