@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &302059638977866392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1026939321648018721}
+  m_Layer: 0
+  m_Name: Handle Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1026939321648018721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302059638977866392}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 1, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 857988257857388969}
+  m_Father: {fileID: 5661758143159204518}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &1284173437482470294
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,7 +112,6 @@ MonoBehaviour:
   _fallingIceRoot: {fileID: 1284173437482470293}
   _fallingIcePrefab: {fileID: 2431380744458681771, guid: 457e3d8355f8a7d4fbe895f1ccec9c0e,
     type: 3}
-  _perFallingIceCount: 5
 --- !u!1 &4446027130896047772
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &857988258412698735
 Transform:
   m_ObjectHideFlags: 0
@@ -266,10 +296,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4446027131530326970}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: -0.2584839, z: -0.09716797}
-  m_LocalScale: {x: 138.12347, y: 138.12346, z: 108.91954}
+  m_LocalPosition: {x: 0, y: -0.25848365, z: -0.09716797}
+  m_LocalScale: {x: 138.12347, y: 138.12344, z: 108.91954}
   m_Children: []
-  m_Father: {fileID: 5661758143159204518}
+  m_Father: {fileID: 1026939321648018721}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8553225718145022879
@@ -425,7 +455,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.36, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
-  - {fileID: 857988257857388969}
+  - {fileID: 1026939321648018721}
   - {fileID: 857988258412698735}
   - {fileID: 857988258499931279}
   - {fileID: 857988257527461006}
