@@ -7,6 +7,8 @@ namespace NeoCasual.GoingHyper.UIs
     public class MainUI : MonoBehaviour
     {
         [SerializeField]
+        private GameObject _title;
+        [SerializeField]
         private GameObject _handUI;
 
         [Header("Mold Fill UI")]
@@ -36,8 +38,14 @@ namespace NeoCasual.GoingHyper.UIs
         {
             if (_isFirstInputDone) return;
 
+            _title.gameObject.SetActive (false);
             _handUI.gameObject.SetActive(false);
             _isFirstInputDone = true;
+        }
+
+        public void SetActiveHandUI (bool isActive)
+        {
+            _handUI.gameObject.SetActive (isActive);
         }
 
         public void OnIceStackChanged(float fillPercentage)
@@ -68,6 +76,15 @@ namespace NeoCasual.GoingHyper.UIs
         public void HideProgressBarAnimation ()
         {
             _progressBarRect.DOAnchorPosX (-200f, 0.25f);
+        }
+
+        public void ShowButton (Button button)
+        {
+            button.gameObject.SetActive (true);
+
+            DOTween.Kill (button);
+            button.transform.localScale = Vector3.zero;
+            button.transform.DOScale (1f, 0.5f).SetEase (Ease.OutBack, 2f);
         }
     }
 }
