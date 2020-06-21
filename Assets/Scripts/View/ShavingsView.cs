@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace NeoCasual.GoingHyper
 {
@@ -40,6 +41,11 @@ namespace NeoCasual.GoingHyper
 
                 _rotPosPotential = 0;
             }
+        }
+
+        public void TakeAnimation ()
+        {
+            transform.DOMoveY (8.5f, 0.5f);
         }
     }
 }
