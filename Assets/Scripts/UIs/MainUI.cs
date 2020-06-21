@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace NeoCasual.GoingHyper.UIs
 {
@@ -6,15 +8,36 @@ namespace NeoCasual.GoingHyper.UIs
     {
         [SerializeField]
         private GameObject _handUI;
+        [SerializeField]
+        private Slider _slider;
+        [SerializeField]
+        private float _sliderFillDuration = 0.05f;
 
-        private bool _isFirstSwipeDone;
+        private bool _isFirstInputDone;
+        private Tweener _sliderTweener;
 
-        public void OnStartSwiping(Vector2 position)
+        public void Initialize()
         {
-            if (_isFirstSwipeDone) return;
+            _slider.value = 0;
+        }
+
+        public void InputCheck()
+        {
+            if (_isFirstInputDone) return;
 
             _handUI.gameObject.SetActive(false);
-            _isFirstSwipeDone = true;
+            _isFirstInputDone = true;
+        }
+
+        public void OnIceStackChanged(float fillPercentage)
+        {
+            _sliderTweener?.Kill();
+
+            var lastSliderValue = _slider.value;
+            _sliderTweener = DOTween.To(value =>
+            {
+                _slider.value = Mathf.Lerp(lastSliderValue, fillPercentage, value);
+            }, 0, 1, _sliderFillDuration);
         }
     }
 }

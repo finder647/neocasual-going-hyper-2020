@@ -7,36 +7,22 @@ namespace NeoCasual.GoingHyper
 {
     public enum GameState
     {
-        Init,
-        Gameplay,
-        PostGameplay
+        WaitingInput,
+        Result
     }
 
     public class Main : MonoBehaviour
     {
-        public delegate void GameEvent(GameState currentState);
-
-        [SerializeField] private ShavingsView _shavings;
-        [SerializeField] private GameObject _testResult;
         [SerializeField] private MainUI _mainUI;
+        [SerializeField] private ShavingsView _shavings;
+        [SerializeField] private MoldView _mold;
+        [SerializeField] private FillResultView _fillResult;
+        [SerializeField] private MoldFilter _moldFilter;
 
         private InputManager _input;
         private MeshSlicer _slicer;
-        private GameState _state;
 
-        public GameState State
-        {
-            get { return _state; }
-            set
-            {
-                if (_state != value)
-                {
-                    _state = value;
-                    OnGameStateChanged?.Invoke(_state);
-                }
-            }
-        }
-        public event GameEvent OnGameStateChanged;
+        private GameState _currentState;
 
         private void Awake ()
         {
@@ -51,19 +37,43 @@ namespace NeoCasual.GoingHyper
 
         private void Update ()
         {
-            _input.Update ();
+            float deltaTime = Time.deltaTime;
 
-            if (Input.GetKeyDown (KeyCode.Space))
+            if (_currentState == GameState.WaitingInput)
             {
-                _slicer.SliceObject (_testResult, new float[] { 10f, 20f, 30f });
+                _input.Update (deltaTime);
             }
         }
 
         private void CommunicateEvent ()
         {
-            _input.OnStartSwiping += _shavings.OnStartSwiping;
-            _input.OnSwiping += _shavings.OnSwiping;
-            _input.OnStartSwiping += _mainUI.OnStartSwiping;
+            _input.OnHolding += _shavings.OnHolding;
+            _input.OnStartHolding += _mainUI.InputCheck;
+
+            _mold.OnStartOpeningMold += () => _fillResult.ShowResult (0);
+
+            _moldFilter.OnFallenIceCountChanged += OnFallenIceCountChanged;
+            _moldFilter.OnFallenIceCountChanged += _mainUI.OnIceStackChanged;
+        }
+
+        private void FillToResultTransition ()
+        {
+            _shavings.TakeAnimation ();
+            CoroutineHelper.WaitForSeconds (2f, _mold.CloseAnimation);
+        }
+
+        private void OnFallenIceCountChanged (float fillPercentage)
+        {
+            if (_currentState == GameState.Result)
+            {
+                return;
+            }
+
+            if (fillPercentage >= 1f)
+            {
+                _currentState = GameState.Result;
+                FillToResultTransition ();
+            }
         }
     }
 }

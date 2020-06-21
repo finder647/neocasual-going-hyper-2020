@@ -1,43 +1,31 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace NeoCasual.GoingHyper
 {
     public class ShavingsView : MonoBehaviour
     {
-        public float swipeDistanceToRotation = 20f;
-        [Range (0f, 1f)]
-        public float minDeltaSwipePosX = 0.025f;
-
+        [Header ("Shavings Config")]
         [SerializeField]
         private Transform _shaveHandle;
         [SerializeField]
-        private FallingIce _fallingIcePrefab;
+        private float _holdTimeToRotation = 150f;
         [SerializeField]
-        public float _rotForceThreshold = 25;
+        private float _rotForceThreshold = 25;
+
+        [Header ("Ice Config")]
         [SerializeField]
         private Transform _fallingIceRoot;
+        [SerializeField]
+        private FallingIce _fallingIcePrefab;
 
         private Vector3 _prevHoldPos;
         private float _rotPosPotential;
 
-        public void OnStartSwiping (Vector2 position)
+        public void OnHolding (float deltaHoldTime)
         {
-            _prevHoldPos = position;
-        }
-
-        public void OnSwiping (Vector2 position, Vector2 distance)
-        {
-            float deltaPosX = Mathf.Abs (_prevHoldPos.x - position.x) / Screen.width;
-            Vector3 rotationForce = Vector3.zero;
-
-            if (deltaPosX > minDeltaSwipePosX)
-            {
-                rotationForce = new Vector3 (0f, deltaPosX * swipeDistanceToRotation, 0f);
-                _prevHoldPos = position;
-            }
-
+            Vector3 rotationForce = new Vector3 (0f, deltaHoldTime * _holdTimeToRotation, 0f);
             _shaveHandle.transform.eulerAngles += rotationForce;
-
             _rotPosPotential += rotationForce.y;
 
             if (_rotPosPotential > _rotForceThreshold)
@@ -51,6 +39,11 @@ namespace NeoCasual.GoingHyper
 
                 _rotPosPotential = 0;
             }
+        }
+
+        public void TakeAnimation ()
+        {
+            transform.DOMoveY (8.5f, 0.5f);
         }
     }
 }
