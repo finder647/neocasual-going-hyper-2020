@@ -29,7 +29,7 @@ namespace NeoCasual.GoingHyper
         public void OnHolding (float deltaHoldTime)
         {
             Vector3 rotationForce = new Vector3 (0f, deltaHoldTime * _holdTimeToRotation, 0f);
-            _shaveHandle.transform.eulerAngles += rotationForce;
+            _shaveHandle.transform.localEulerAngles += rotationForce;
             _rotPosPotential += rotationForce.y;
 
             if (_rotPosPotential > _rotForceThreshold)

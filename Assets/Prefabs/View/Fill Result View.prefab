@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fill-Eifell
       objectReference: {fileID: 0}
+    - target: {fileID: 1907219649222819637, guid: 6dae43e16cf061a4980de9f8cb3429e3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a152a61ed790f644ca60fa1dcfc31969, type: 2}
     - target: {fileID: 3751571052511558138, guid: 6dae43e16cf061a4980de9f8cb3429e3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -199,6 +204,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fill-Switch
       objectReference: {fileID: 0}
+    - target: {fileID: 3731544342789954418, guid: e342c5cd6cf9db649a0ea4538fcab63f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2646a5a13b0ac0b409c727e4f3d7e7e9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e342c5cd6cf9db649a0ea4538fcab63f, type: 3}
 --- !u!1 &249385002589225744 stripped
@@ -280,6 +290,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fill-Pyramid
       objectReference: {fileID: 0}
+    - target: {fileID: 7249243166724757353, guid: 0aca495af9e02af41a45b304c5456bde,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b96b5c32c2e3cdc4d9bd119feb3b7fb9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0aca495af9e02af41a45b304c5456bde, type: 3}
 --- !u!1 &6689032082334865100 stripped
