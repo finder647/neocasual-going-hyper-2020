@@ -14,6 +14,10 @@ namespace NeoCasual.GoingHyper
         [SerializeField]
         private ShakeSetting3D _shakeSetting;
 
+        [Header("Ice Base")]
+        [SerializeField]
+        private Transform _iceBase;
+
         [Header ("Shavings Config")]
         [SerializeField]
         private Transform _shaveHandle;
@@ -54,6 +58,7 @@ namespace NeoCasual.GoingHyper
 
             Vector3 rotationForce = new Vector3 (0f, deltaHoldTime * _holdTimeToRotation, 0f);
             _shaveHandle.transform.localEulerAngles += rotationForce;
+            _iceBase.localEulerAngles += rotationForce;
             _rotPosPotential += rotationForce.y;
 
             if (_rotPosPotential > _rotForceThreshold)
@@ -68,6 +73,14 @@ namespace NeoCasual.GoingHyper
                 _rotPosPotential = 0;
                 VFX.Instance.PlayVFXAt(Constant.VFX_ICE_SHRED_01, _fallingIceRoot.position);
             }
+        }
+
+        public void OnIceStackChanged(float percentage)
+        {
+            var scale = _iceBase.localScale;
+            scale.y = 1 - percentage;
+
+            _iceBase.localScale = scale;
         }
 
         public void ComeAnimation ()
