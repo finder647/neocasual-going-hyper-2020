@@ -14,7 +14,7 @@ namespace NeoCasual.GoingHyper
             for (int i = 0; i < _fallingIcePerClick; i++)
             {
                 var fallingIce = Instantiate(_fallingIce, null);
-                fallingIce.Drop(position, 3);
+                fallingIce.Drop(position);
             }            
         }
 
