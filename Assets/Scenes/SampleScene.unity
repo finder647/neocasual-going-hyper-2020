@@ -1314,7 +1314,7 @@ MonoBehaviour:
   _triggerMask:
     serializedVersion: 2
     m_Bits: 256
-  _fallenIceTarget: 700
+  _fallenIceTarget: 50
 --- !u!1 &1825487390
 GameObject:
   m_ObjectHideFlags: 0
