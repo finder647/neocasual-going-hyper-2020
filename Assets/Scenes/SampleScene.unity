@@ -1081,11 +1081,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mold View
       objectReference: {fileID: 0}
-    - target: {fileID: 8957393777520840728, guid: 08815c32a42825346a56bc8238c31063,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8957393777520840807, guid: 08815c32a42825346a56bc8238c31063,
         type: 3}
       propertyPath: m_LocalPosition.x
