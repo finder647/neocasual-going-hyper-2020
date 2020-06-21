@@ -1,5 +1,6 @@
 ﻿using NeoCasual.GoingHyper.Inputs;
 using NeoCasual.GoingHyper.MeshSlice;
+using NeoCasual.GoingHyper.UIs;
 using UnityEngine;
 
 namespace NeoCasual.GoingHyper
@@ -12,6 +13,7 @@ namespace NeoCasual.GoingHyper
 
     public class Main : MonoBehaviour
     {
+        [SerializeField] private MainUI _mainUI;
         [SerializeField] private ShavingsView _shavings;
         [SerializeField] private MoldView _mold;
         [SerializeField] private FillResultView _fillResult;
@@ -46,10 +48,12 @@ namespace NeoCasual.GoingHyper
         private void CommunicateEvent ()
         {
             _input.OnHolding += _shavings.OnHolding;
+            _input.OnStartHolding += _mainUI.InputCheck;
 
             _mold.OnStartOpeningMold += () => _fillResult.ShowResult (0);
 
             _moldFilter.OnFallenIceCountChanged += OnFallenIceCountChanged;
+            _moldFilter.OnFallenIceCountChanged += _mainUI.OnIceStackChanged;
         }
 
         private void FillToResultTransition ()

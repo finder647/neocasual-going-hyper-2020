@@ -9,16 +9,28 @@ namespace NeoCasual.GoingHyper
 
         public event MoldEvent OnFallenIceCountChanged;
 
+        private readonly List<GameObject> _fallenIces = new List<GameObject>();
+
         [SerializeField]
         private BoxCollider _moldBase;
         [SerializeField]
         private LayerMask _triggerMask;
         [SerializeField]
         private int _fallenIceTarget = 100;
-
-        private List<GameObject> _fallenIces = new List<GameObject>();
         
         public int FallenIceCount => _fallenIces.Count;
+
+        public void Initialize()
+        {
+            foreach(var fallenIce in _fallenIces)
+            {
+                Destroy(fallenIce?.gameObject);
+            }
+
+            _fallenIces.Clear();
+
+
+        }
 
         private void OnTriggerEnter(Collider other)
         {
