@@ -35,11 +35,11 @@ namespace NeoCasual.GoingHyper
             {
                 _hasFallen = true;
 
-                for (int i = 0; i < _fallenIceCount; i++)
-                {
-                    var fallenIce = Instantiate(_fallenIcePrefab, collision.transform.parent);
-                    fallenIce.Drop(collision.GetContact(0).point, i);
-                }                
+                //for (int i = 0; i < _fallenIceCount; i++)
+                //{
+                //    var fallenIce = Instantiate(_fallenIcePrefab, collision.transform.parent);
+                //    fallenIce.Drop(collision.GetContact(0).point, i);
+                //}                
             }
         }
 
