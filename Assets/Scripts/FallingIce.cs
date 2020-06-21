@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using VFX = NeoCasual.GoingHyper.VisualEffects.VisualEffectProvider;
 
 namespace NeoCasual.GoingHyper
 {
@@ -24,6 +25,8 @@ namespace NeoCasual.GoingHyper
         {
             if ((1 << collision.gameObject.layer & _layers.value) != 0)
             {
+                if (collision.contactCount > 0)
+                    VFX.Instance.PlayVFXAt(Constant.VFX_ICE_BUMP_01, collision.GetContact(0).point);
                 Destroy(gameObject);              
             }
         }

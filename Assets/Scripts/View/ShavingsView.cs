@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using VFX = NeoCasual.GoingHyper.VisualEffects.VisualEffectProvider;
 
 namespace NeoCasual.GoingHyper
 {
@@ -38,6 +39,7 @@ namespace NeoCasual.GoingHyper
                 }
 
                 _rotPosPotential = 0;
+                VFX.Instance.PlayVFXAt(Constant.VFX_ICE_SHRED_01, _fallingIceRoot.position);
             }
         }
 
