@@ -2,6 +2,8 @@
 using NeoCasual.GoingHyper.MeshSlice;
 using NeoCasual.GoingHyper.UIs;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace NeoCasual.GoingHyper
 {
@@ -22,6 +24,8 @@ namespace NeoCasual.GoingHyper
         [SerializeField] private FillResultView _fillResult;
         [SerializeField] private MoldFilter _moldFilter;
         [SerializeField] private MoldBase _moldBase;
+        [SerializeField] private Button _homeButton;
+        [SerializeField] private Button _nextButton;
 
         private InputManager _input;
         private MeshSlicer _slicer;
@@ -61,14 +65,25 @@ namespace NeoCasual.GoingHyper
 
             _fillResult.OnShowcaseStarted += () =>
             {
+                (_levelIndex == _maxLevel - 1 ? _homeButton : _nextButton).gameObject.SetActive (true);
                 _currentState = GameState.AfterResult;
-                OnStopHolding();
             };
 
             _shavings.OnComeToScreen += () =>
             {
                 _currentState = GameState.WaitingInput;
             };
+
+            _nextButton.onClick.AddListener (() =>
+            {
+                _nextButton.gameObject.SetActive (false);
+                NextStage ();
+            });
+
+            _homeButton.onClick.AddListener (() =>
+            {
+                SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+            });
         }
 
         private void NextStage ()
@@ -119,14 +134,10 @@ namespace NeoCasual.GoingHyper
         {
             if (_currentState == GameState.WaitForOpenResult)
             {
+                _mainUI.SetActiveHandUI (false);
                 _mainUI.HideProgressBarAnimation ();
                 _mold.OpenAnimation ();
                 _fillResult.ShowResult (_levelIndex);
-            }
-
-            else if (_currentState == GameState.AfterResult)
-            {
-                NextStage ();
             }
         }
         #endregion
@@ -138,6 +149,7 @@ namespace NeoCasual.GoingHyper
             {
                 _mold.CloseAnimation (() =>
                 {
+                    _mainUI.SetActiveHandUI (true);
                     _currentState = GameState.WaitForOpenResult;
                     _moldBase.ClearFallenIces ();
                 });
@@ -153,6 +165,7 @@ namespace NeoCasual.GoingHyper
 
             if (fillPercentage >= 1f)
             {
+                OnStopHolding ();
                 _currentState = GameState.Result;
                 FillToResultTransition ();
             }
