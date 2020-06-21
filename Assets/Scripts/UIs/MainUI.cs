@@ -8,8 +8,16 @@ namespace NeoCasual.GoingHyper.UIs
     {
         [SerializeField]
         private GameObject _handUI;
+
+        [Header("Mold Fill UI")]
         [SerializeField]
         private Slider _slider;
+        [SerializeField]
+        private Image _starImage;
+        [SerializeField]
+        private Sprite _defaultStarImage;
+        [SerializeField]
+        private Sprite _fullStarImage;
         [SerializeField]
         private float _sliderFillDuration = 0.05f;
 
@@ -19,6 +27,7 @@ namespace NeoCasual.GoingHyper.UIs
         public void Initialize()
         {
             _slider.value = 0;
+            _starImage.sprite = _defaultStarImage;
         }
 
         public void InputCheck()
@@ -38,6 +47,11 @@ namespace NeoCasual.GoingHyper.UIs
             {
                 _slider.value = Mathf.Lerp(lastSliderValue, fillPercentage, value);
             }, 0, 1, _sliderFillDuration);
+
+            if (fillPercentage >= .95f)
+            {
+                _starImage.sprite = _fullStarImage;
+            }
         }
     }
 }
