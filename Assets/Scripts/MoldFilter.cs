@@ -5,20 +5,27 @@ namespace NeoCasual.GoingHyper
 {
     public class MoldFilter : MonoBehaviour
     {
-        public delegate void MoldEvent(float fillPercentage);
-
-        public event MoldEvent OnFallenIceCountChanged;
-
         private readonly List<GameObject> _fallenIces = new List<GameObject>();
 
-        [SerializeField]
-        private BoxCollider _moldBase;
         [SerializeField]
         private LayerMask _triggerMask;
         [SerializeField]
         private int _fallenIceTarget = 100;
-        
+
+        [SerializeField]
+        private BoxCollider[] _moldBases;
+
+        private BoxCollider _currentMoldBase;
+
         public int FallenIceCount => _fallenIces.Count;
+
+        public delegate void MoldEvent (float fillPercentage);
+        public event MoldEvent OnFallenIceCountChanged;
+
+        private void Awake ()
+        {
+            _currentMoldBase = _moldBases[0];
+        }
 
         public void Initialize()
         {
@@ -28,8 +35,12 @@ namespace NeoCasual.GoingHyper
             }
 
             _fallenIces.Clear();
+        }
 
-
+        public void ChangeActiveMold (int index)
+        {
+            Initialize ();
+            _currentMoldBase = _moldBases[index];
         }
 
         private void OnTriggerEnter(Collider other)
@@ -46,13 +57,13 @@ namespace NeoCasual.GoingHyper
 
         private void UpdateMoldBaseSize(float fillPercentage)
         {
-            var moldBaseSize = _moldBase.size;
-            var moldBaseCenter = _moldBase.center;
+            var moldBaseSize = _currentMoldBase.size;
+            var moldBaseCenter = _currentMoldBase.center;
             moldBaseSize.y = Mathf.Lerp(0.1f, 1, fillPercentage);
             moldBaseCenter.y = moldBaseSize.y * .5f;
             
-            _moldBase.size = moldBaseSize;
-            _moldBase.center = moldBaseCenter;
+            _currentMoldBase.size = moldBaseSize;
+            _currentMoldBase.center = moldBaseCenter;
         }
     }
 }

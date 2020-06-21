@@ -9,7 +9,8 @@ namespace NeoCasual.GoingHyper
     {
         WaitingInput,
         Result,
-        AfterResult
+        AfterResult,
+        Spawning
     }
 
     public class Main : MonoBehaviour
@@ -19,6 +20,7 @@ namespace NeoCasual.GoingHyper
         [SerializeField] private MoldView _mold;
         [SerializeField] private FillResultView _fillResult;
         [SerializeField] private MoldFilter _moldFilter;
+        [SerializeField] private MoldBase _moldBase;
 
         private InputManager _input;
         private MeshSlicer _slicer;
@@ -43,26 +45,28 @@ namespace NeoCasual.GoingHyper
         {
             float deltaTime = Time.deltaTime;
 
-            if (_currentState == GameState.WaitingInput)
-            {
-                _input.Update (deltaTime);
-            }
+            _input.Update (deltaTime);
         }
 
         private void CommunicateEvent ()
         {
-            _input.OnStartHolding += _mainUI.InputCheck;
-            _input.OnHolding += _shavings.OnHolding;
+            _input.OnStartHolding += OnStartHolding;
+            _input.OnHolding += OnHolding;
             _input.OnTapped += OnTapped;
 
             _moldFilter.OnFallenIceCountChanged += OnFallenIceCountChanged;
             _moldFilter.OnFallenIceCountChanged += _mainUI.OnIceStackChanged;
 
-            _mold.OnStartOpeningMold += () => _fillResult.ShowResult (0);
+            _mold.OnStartOpeningMold += () => _fillResult.ShowResult (_levelIndex);
 
             _fillResult.OnShowcaseStarted += () =>
             {
                 _currentState = GameState.AfterResult;
+            };
+
+            _shavings.OnComeToScreen += () =>
+            {
+                _currentState = GameState.WaitingInput;
             };
         }
 
@@ -70,7 +74,12 @@ namespace NeoCasual.GoingHyper
         {
             if (++_levelIndex < _maxLevel)
             {
+                _currentState = GameState.Spawning;
 
+                _fillResult.HideResult ();
+                _moldFilter.ChangeActiveMold (_levelIndex);
+                _moldBase.ChangeActivedMold (_levelIndex);
+                _mold.PutAnimation (_shavings.ComeAnimation);
             }
             else
             {
@@ -78,10 +87,21 @@ namespace NeoCasual.GoingHyper
             }
         }
 
-        private void FillToResultTransition ()
+        #region Input Listener
+        private void OnStartHolding ()
         {
-            _shavings.TakeAnimation ();
-            CoroutineHelper.WaitForSeconds (2f, _mold.CloseAnimation);
+            if (_currentState == GameState.WaitingInput)
+            {
+                _mainUI.InputCheck ();
+            }
+        }
+
+        private void OnHolding (float deltaHoldTime)
+        {
+            if (_currentState == GameState.WaitingInput)
+            {
+                _shavings.OnHolding (deltaHoldTime);
+            }
         }
 
         private void OnTapped ()
@@ -90,6 +110,13 @@ namespace NeoCasual.GoingHyper
             {
                 NextStage ();
             }
+        }
+        #endregion
+
+        private void FillToResultTransition ()
+        {
+            _shavings.LeaveAnimation ();
+            CoroutineHelper.WaitForSeconds (2f, _mold.CloseAnimation);
         }
 
         private void OnFallenIceCountChanged (float fillPercentage)

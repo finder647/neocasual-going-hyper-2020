@@ -22,6 +22,9 @@ namespace NeoCasual.GoingHyper
         private Vector3 _prevHoldPos;
         private float _rotPosPotential;
 
+        public event ComeEvent OnComeToScreen;
+        public delegate void ComeEvent ();
+
         public void OnHolding (float deltaHoldTime)
         {
             Vector3 rotationForce = new Vector3 (0f, deltaHoldTime * _holdTimeToRotation, 0f);
@@ -41,7 +44,12 @@ namespace NeoCasual.GoingHyper
             }
         }
 
-        public void TakeAnimation ()
+        public void ComeAnimation ()
+        {
+            transform.DOMoveY (6f, 0.5f).OnComplete (() => OnComeToScreen?.Invoke ());
+        }
+
+        public void LeaveAnimation ()
         {
             transform.DOMoveY (8.5f, 0.5f);
         }

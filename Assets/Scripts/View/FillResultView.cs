@@ -11,11 +11,12 @@ namespace NeoCasual.GoingHyper
         private GameObject[] _resultObjects;
 
         private bool _isRotating;
+        private GameObject _currentResultObj;
+
+        public int ResultObjectCount => _resultObjects.Length;
 
         public event StartShowcaseEvent OnShowcaseStarted;
         public delegate void StartShowcaseEvent ();
-
-        public int ResultObjectCount => _resultObjects.Length;
 
         private void Update ()
         {
@@ -27,7 +28,8 @@ namespace NeoCasual.GoingHyper
 
         public void ShowResult (int index)
         {
-            _resultObjects[index].SetActive (true);
+            _currentResultObj = _resultObjects[index];
+            _currentResultObj.SetActive (true);
 
             CoroutineHelper.WaitForSeconds (1f, ShowcaseAnimation);
         }
@@ -39,6 +41,15 @@ namespace NeoCasual.GoingHyper
                 _isRotating = true;
                 OnShowcaseStarted?.Invoke ();
             });
+        }
+
+        public void HideResult ()
+        {
+            _currentResultObj.SetActive (false);
+
+            _isRotating = false;
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
         }
     }
 }
