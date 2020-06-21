@@ -18,8 +18,6 @@ namespace NeoCasual.GoingHyper
         private Transform _fallingIceRoot;
         [SerializeField]
         private FallingIce _fallingIcePrefab;
-        [SerializeField]
-        private int _perFallingIceCount = 5;
 
         private Vector3 _prevHoldPos;
         private float _rotPosPotential;
@@ -36,7 +34,7 @@ namespace NeoCasual.GoingHyper
                 for (int i = 0; i < fallenIceCount; i++)
                 {
                     var fallingIce = Instantiate(_fallingIcePrefab, _fallingIceRoot);
-                    fallingIce.Drop(_fallingIceRoot.position, _perFallingIceCount);
+                    fallingIce.Drop(_fallingIceRoot.position);
                 }
 
                 _rotPosPotential = 0;
