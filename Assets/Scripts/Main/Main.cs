@@ -7,7 +7,8 @@ namespace NeoCasual.GoingHyper
     public enum GameState
     {
         WaitingInput,
-        Result
+        Result,
+        AfterResult
     }
 
     public class Main : MonoBehaviour
@@ -20,7 +21,10 @@ namespace NeoCasual.GoingHyper
         private InputManager _input;
         private MeshSlicer _slicer;
 
+        private int _levelIndex;
         private GameState _currentState;
+
+        private int _maxLevel => _fillResult.ResultObjectCount;
 
         private void Awake ()
         {
@@ -46,16 +50,42 @@ namespace NeoCasual.GoingHyper
         private void CommunicateEvent ()
         {
             _input.OnHolding += _shavings.OnHolding;
+            _input.OnTapped += OnTapped;
+
+            _moldFilter.OnFallenIceCountChanged += OnFallenIceCountChanged;
 
             _mold.OnStartOpeningMold += () => _fillResult.ShowResult (0);
 
-            _moldFilter.OnFallenIceCountChanged += OnFallenIceCountChanged;
+            _fillResult.OnShowcaseStarted += () =>
+            {
+                _currentState = GameState.AfterResult;
+            };
+        }
+
+        private void NextStage ()
+        {
+            if (++_levelIndex < _maxLevel)
+            {
+
+            }
+            else
+            {
+                // All Level Complete
+            }
         }
 
         private void FillToResultTransition ()
         {
             _shavings.TakeAnimation ();
             CoroutineHelper.WaitForSeconds (2f, _mold.CloseAnimation);
+        }
+
+        private void OnTapped ()
+        {
+            if (_currentState == GameState.AfterResult)
+            {
+                NextStage ();
+            }
         }
 
         private void OnFallenIceCountChanged (float fillPercentage)

@@ -12,6 +12,11 @@ namespace NeoCasual.GoingHyper
 
         private bool _isRotating;
 
+        public event StartShowcaseEvent OnShowcaseStarted;
+        public delegate void StartShowcaseEvent ();
+
+        public int ResultObjectCount => _resultObjects.Length;
+
         private void Update ()
         {
             if (_isRotating)
@@ -32,6 +37,7 @@ namespace NeoCasual.GoingHyper
             transform.DOMoveY (3f, 0.5f).OnComplete (() =>
             {
                 _isRotating = true;
+                OnShowcaseStarted?.Invoke ();
             });
         }
     }

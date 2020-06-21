@@ -9,10 +9,12 @@ namespace NeoCasual.GoingHyper.Inputs
         private bool _isHolding;
         private float _holdingPreTime;
 
+        public event TapEvent OnTapped;
         public event HoldEvent OnStartHolding;
         public event HoldingEvent OnHolding;
         public event HoldEvent OnFinishHolding;
 
+        public delegate void TapEvent ();
         public delegate void HoldEvent ();
         public delegate void HoldingEvent (float deltaTime);
 
@@ -28,6 +30,7 @@ namespace NeoCasual.GoingHyper.Inputs
             if (Input.GetMouseButtonDown (0))
             {
                 StartHold ();
+                OnTapped?.Invoke ();
             }
 
             if (Input.GetMouseButton (0))
