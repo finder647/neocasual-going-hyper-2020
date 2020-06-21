@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using NeoCasual.GoingHyper.Utilities;
 using UnityEngine;
 using VFX = NeoCasual.GoingHyper.VisualEffects.VisualEffectProvider;
 
@@ -6,6 +7,13 @@ namespace NeoCasual.GoingHyper
 {
     public class ShavingsView : MonoBehaviour
     {
+        [SerializeField]
+        private AudioSource _audioSource;
+        [SerializeField]
+        private Shaker3D _shaker;
+        [SerializeField]
+        private ShakeSetting3D _shakeSetting;
+
         [Header ("Shavings Config")]
         [SerializeField]
         private Transform _shaveHandle;
@@ -26,8 +34,24 @@ namespace NeoCasual.GoingHyper
         public event ComeEvent OnComeToScreen;
         public delegate void ComeEvent ();
 
+        public void OnStopHolding()
+        {
+            _audioSource.Stop();
+        }
+
+        public void OnStartHolding()
+        {
+            _audioSource.Play();
+        }
+
         public void OnHolding (float deltaHoldTime)
         {
+            if (!_shaker.IsShaking)
+            {
+                _shaker.StartShake(_shakeSetting);
+                Vibration.Vibrate((long)(_shakeSetting.Duration * 100));
+            }
+
             Vector3 rotationForce = new Vector3 (0f, deltaHoldTime * _holdTimeToRotation, 0f);
             _shaveHandle.transform.localEulerAngles += rotationForce;
             _rotPosPotential += rotationForce.y;
