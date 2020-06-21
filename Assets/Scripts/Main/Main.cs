@@ -7,7 +7,6 @@ namespace NeoCasual.GoingHyper
     public class Main : MonoBehaviour
     {
         [SerializeField] private ShavingsView _shavings;
-        [SerializeField] private GameObject _testResult;
 
         private InputManager _input;
         private MeshSlicer _slicer;
@@ -25,18 +24,14 @@ namespace NeoCasual.GoingHyper
 
         private void Update ()
         {
-            _input.Update ();
+            float deltaTime = Time.deltaTime;
 
-            if (Input.GetKeyDown (KeyCode.Space))
-            {
-                _slicer.SliceObject (_testResult, new float[] { 10f, 20f, 30f });
-            }
+            _input.Update (deltaTime);
         }
 
         private void CommunicateEvent ()
         {
-            _input.OnStartSwiping += _shavings.OnStartSwiping;
-            _input.OnSwiping += _shavings.OnSwiping;
+            _input.OnHolding += _shavings.OnHolding;
         }
     }
 }
