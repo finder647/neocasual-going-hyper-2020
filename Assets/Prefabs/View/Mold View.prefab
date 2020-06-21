@@ -302,7 +302,7 @@ MonoBehaviour:
     m_Bits: 256
   _fallenIcePrefab: {fileID: 2054922695444433493, guid: 34fb72dbb6cd6aa45982cd88224be936,
     type: 3}
-  _fallenIceCount: 5
+  _fallenIceCount: 3
   _baseColliders:
   - {fileID: 521232227236285550}
   - {fileID: 8906973472476345092}
