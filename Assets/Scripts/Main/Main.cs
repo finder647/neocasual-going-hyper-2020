@@ -51,6 +51,7 @@ namespace NeoCasual.GoingHyper
         private void CommunicateEvent ()
         {
             _input.OnStartHolding += OnStartHolding;
+            _input.OnFinishHolding += OnStopHolding;
             _input.OnHolding += OnHolding;
             _input.OnTapped += OnTapped;
 
@@ -62,6 +63,7 @@ namespace NeoCasual.GoingHyper
             _fillResult.OnShowcaseStarted += () =>
             {
                 _currentState = GameState.AfterResult;
+                OnStopHolding();
             };
 
             _shavings.OnComeToScreen += () =>
@@ -92,7 +94,8 @@ namespace NeoCasual.GoingHyper
         {
             if (_currentState == GameState.WaitingInput)
             {
-                _mainUI.InputCheck ();
+                _shavings.OnStartHolding();
+                _mainUI.InputCheck();
             }
         }
 
@@ -101,6 +104,14 @@ namespace NeoCasual.GoingHyper
             if (_currentState == GameState.WaitingInput)
             {
                 _shavings.OnHolding (deltaHoldTime);
+            }
+        }
+
+        private void OnStopHolding()
+        {
+            if (_currentState == GameState.WaitingInput)
+            {
+                _shavings.OnStopHolding();
             }
         }
 
