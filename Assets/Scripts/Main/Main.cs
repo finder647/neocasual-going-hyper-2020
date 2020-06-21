@@ -7,6 +7,7 @@ namespace NeoCasual.GoingHyper
     public class Main : MonoBehaviour
     {
         [SerializeField] private ShavingsView _shavings;
+        [SerializeField] private GameObject _testResult;
 
         private InputManager _input;
         private MeshSlicer _slicer;
@@ -25,6 +26,11 @@ namespace NeoCasual.GoingHyper
         private void Update ()
         {
             _input.Update ();
+
+            if (Input.GetKeyDown (KeyCode.Space))
+            {
+                _slicer.SliceObject (_testResult, new float[] { 10f, 20f, 30f });
+            }
         }
 
         private void CommunicateEvent ()
