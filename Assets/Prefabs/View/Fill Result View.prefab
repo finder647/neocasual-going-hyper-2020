@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8094115598871766905
 Transform:
   m_ObjectHideFlags: 0
@@ -51,6 +51,10 @@ MonoBehaviour:
   - {fileID: 6689032082334865100}
   - {fileID: 249385002589225744}
   - {fileID: 249385003498081434}
+  _resultShowcaseHeights:
+  - 4.5
+  - 4.5
+  - 3.25
 --- !u!1001 &89762414808008563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62,6 +66,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fill-Eifell
+      objectReference: {fileID: 0}
+    - target: {fileID: 165252363639065577, guid: 6dae43e16cf061a4980de9f8cb3429e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1907219649222819637, guid: 6dae43e16cf061a4980de9f8cb3429e3,
         type: 3}
@@ -204,6 +213,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fill-Switch
       objectReference: {fileID: 0}
+    - target: {fileID: 3167664152777797550, guid: e342c5cd6cf9db649a0ea4538fcab63f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3731544342789954418, guid: e342c5cd6cf9db649a0ea4538fcab63f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -289,6 +303,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fill-Pyramid
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088572237685256346, guid: 0aca495af9e02af41a45b304c5456bde,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7249243166724757353, guid: 0aca495af9e02af41a45b304c5456bde,
         type: 3}

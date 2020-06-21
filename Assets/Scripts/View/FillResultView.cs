@@ -9,9 +9,11 @@ namespace NeoCasual.GoingHyper
         private float _rotateSpeed = 25f;
         [SerializeField]
         private GameObject[] _resultObjects;
+        [SerializeField]
+        private float[] _resultShowcaseHeights;
 
         private bool _isRotating;
-        private GameObject _currentResultObj;
+        private int _currentResultIndex;
 
         public int ResultObjectCount => _resultObjects.Length;
 
@@ -28,15 +30,15 @@ namespace NeoCasual.GoingHyper
 
         public void ShowResult (int index)
         {
-            _currentResultObj = _resultObjects[index];
-            _currentResultObj.SetActive (true);
+            _currentResultIndex = index;
+            _resultObjects[index].SetActive (true);
 
             CoroutineHelper.WaitForSeconds (1f, ShowcaseAnimation);
         }
 
         public void ShowcaseAnimation ()
         {
-            transform.DOMoveY (3f, 0.5f).OnComplete (() =>
+            transform.DOMoveY (_resultShowcaseHeights[_currentResultIndex], 0.5f).OnComplete (() =>
             {
                 _isRotating = true;
                 OnShowcaseStarted?.Invoke ();
@@ -45,7 +47,7 @@ namespace NeoCasual.GoingHyper
 
         public void HideResult ()
         {
-            _currentResultObj.SetActive (false);
+            _resultObjects[_currentResultIndex].SetActive (false);
 
             _isRotating = false;
             transform.localPosition = Vector3.zero;

@@ -13,6 +13,8 @@ namespace NeoCasual.GoingHyper.UIs
         [SerializeField]
         private Slider _slider;
         [SerializeField]
+        private RectTransform _progressBarRect;
+        [SerializeField]
         private Image _starImage;
         [SerializeField]
         private Sprite _defaultStarImage;
@@ -52,6 +54,20 @@ namespace NeoCasual.GoingHyper.UIs
             {
                 _starImage.sprite = _fullStarImage;
             }
+            else if (fillPercentage <= 0f)
+            {
+                Initialize ();
+            }
+        }
+
+        public void ShowProgressBarAnimation ()
+        {
+            _progressBarRect.DOAnchorPosX (0f, 0.25f);
+        }
+
+        public void HideProgressBarAnimation ()
+        {
+            _progressBarRect.DOAnchorPosX (-200f, 0.25f);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace NeoCasual.GoingHyper
     {
         WaitingInput,
         Result,
+        WaitForOpenResult,
         AfterResult,
         Spawning
     }
@@ -57,8 +58,6 @@ namespace NeoCasual.GoingHyper
             _moldFilter.OnFallenIceCountChanged += OnFallenIceCountChanged;
             _moldFilter.OnFallenIceCountChanged += _mainUI.OnIceStackChanged;
 
-            _mold.OnStartOpeningMold += () => _fillResult.ShowResult (_levelIndex);
-
             _fillResult.OnShowcaseStarted += () =>
             {
                 _currentState = GameState.AfterResult;
@@ -80,6 +79,7 @@ namespace NeoCasual.GoingHyper
                 _moldFilter.ChangeActiveMold (_levelIndex);
                 _moldBase.ChangeActivedMold (_levelIndex);
                 _mold.PutAnimation (_shavings.ComeAnimation);
+                _mainUI.ShowProgressBarAnimation ();
             }
             else
             {
@@ -106,7 +106,14 @@ namespace NeoCasual.GoingHyper
 
         private void OnTapped ()
         {
-            if (_currentState == GameState.AfterResult)
+            if (_currentState == GameState.WaitForOpenResult)
+            {
+                _mainUI.HideProgressBarAnimation ();
+                _mold.OpenAnimation ();
+                _fillResult.ShowResult (_levelIndex);
+            }
+
+            else if (_currentState == GameState.AfterResult)
             {
                 NextStage ();
             }
@@ -116,7 +123,14 @@ namespace NeoCasual.GoingHyper
         private void FillToResultTransition ()
         {
             _shavings.LeaveAnimation ();
-            CoroutineHelper.WaitForSeconds (2f, _mold.CloseAnimation);
+            CoroutineHelper.WaitForSeconds (2f, () =>
+            {
+                _mold.CloseAnimation (() =>
+                {
+                    _currentState = GameState.WaitForOpenResult;
+                    _moldBase.ClearFallenIces ();
+                });
+            });
         }
 
         private void OnFallenIceCountChanged (float fillPercentage)

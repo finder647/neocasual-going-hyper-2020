@@ -25,7 +25,6 @@ namespace NeoCasual.GoingHyper
 
         public void ChangeActivedMold (int index)
         {
-            ClearFallenIces ();
             _currentBoxCollider.transform.parent.gameObject.SetActive (false);
 
             _currentBoxCollider = _baseColliders[index];
@@ -50,7 +49,7 @@ namespace NeoCasual.GoingHyper
             }
         }
 
-        private void ClearFallenIces ()
+        public void ClearFallenIces ()
         {
             foreach (GameObject obj in _fallenIces)
             {

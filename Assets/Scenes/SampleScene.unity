@@ -762,20 +762,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main UI Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1377892406018235262, guid: 88801f47ff75b54469eb4d66f258487d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5811537947049599727, guid: 88801f47ff75b54469eb4d66f258487d,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6460983615811781594, guid: 88801f47ff75b54469eb4d66f258487d,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 39.19922
-      objectReference: {fileID: 0}
-    - target: {fileID: 8033117327128436775, guid: 88801f47ff75b54469eb4d66f258487d,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 41.19922
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88801f47ff75b54469eb4d66f258487d, type: 3}
@@ -858,6 +853,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shavings View
       objectReference: {fileID: 0}
+    - target: {fileID: 1284173439043986389, guid: f5e48d170d7d54a4ab16c9bd82d72089,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5e48d170d7d54a4ab16c9bd82d72089, type: 3}
 --- !u!1001 &2922593619942608720
@@ -936,25 +936,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 249385002589225744, guid: 7cbd57279ae47e64c9d21c9b39210200,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 249385003498081434, guid: 7cbd57279ae47e64c9d21c9b39210200,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6689032082334865100, guid: 7cbd57279ae47e64c9d21c9b39210200,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8094115598871766904, guid: 7cbd57279ae47e64c9d21c9b39210200,
         type: 3}
       propertyPath: m_Name
       value: Fill Result View
+      objectReference: {fileID: 0}
+    - target: {fileID: 8094115598871766904, guid: 7cbd57279ae47e64c9d21c9b39210200,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8094115598871766905, guid: 7cbd57279ae47e64c9d21c9b39210200,
         type: 3}
@@ -1024,6 +1014,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mold View
+      objectReference: {fileID: 0}
+    - target: {fileID: 8957393777520840728, guid: 08815c32a42825346a56bc8238c31063,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8957393777520840807, guid: 08815c32a42825346a56bc8238c31063,
         type: 3}
