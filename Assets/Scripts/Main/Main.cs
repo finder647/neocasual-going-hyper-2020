@@ -58,6 +58,7 @@ namespace NeoCasual.GoingHyper
 
             _moldFilter.OnFallenIceCountChanged += OnFallenIceCountChanged;
             _moldFilter.OnFallenIceCountChanged += _mainUI.OnIceStackChanged;
+            _moldFilter.OnFallenIceCountChanged += _shavings.OnIceStackChanged;
 
             _fillResult.OnShowcaseStarted += () =>
             {
