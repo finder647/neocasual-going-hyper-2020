@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Fill Blue
-  m_Shader: {fileID: 4800000, guid: 560faf3892eee11479871ab8fe07b496, type: 3}
+  m_Shader: {fileID: 4800000, guid: 80532088e7ed1b44a98ab683730a93f4, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
@@ -68,6 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _ASEOutlineWidth: 0.03
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -89,6 +90,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
+    - _ASEOutlineColor: {r: 0.36320752, g: 0.85663855, b: 1, a: 1}
     - _Color: {r: 0.7254902, g: 0.98039216, b: 0.98039216, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
