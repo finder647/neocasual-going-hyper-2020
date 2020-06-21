@@ -35,6 +35,7 @@ namespace NeoCasual.GoingHyper
             }
 
             _fallenIces.Clear();
+            OnFallenIceCountChanged?.Invoke (0f);
         }
 
         public void ChangeActiveMold (int index)
