@@ -6,18 +6,15 @@ namespace NeoCasual.GoingHyper.Inputs
     {
         private InputConfig _config;
 
-        private Vector2 _mouseOrigin;
-        private Vector2 _mousePos;
-        private Vector2 _swipeDistance;
-        private bool _isSwiping;
+        private bool _isHolding;
+        private float _holdingPreTime;
 
-        public event StartSwipeEvent OnStartSwiping;
-        public event SwipingEvent OnSwiping;
-        public event FinishSwipeEvent OnFinishSwiping;
+        public event HoldEvent OnStartHolding;
+        public event HoldingEvent OnHolding;
+        public event HoldEvent OnFinishHolding;
 
-        public delegate void StartSwipeEvent (Vector2 position);
-        public delegate void SwipingEvent (Vector2 position, Vector2 distance);
-        public delegate void FinishSwipeEvent (Vector2 position);
+        public delegate void HoldEvent ();
+        public delegate void HoldingEvent (float deltaTime);
 
         public InputManager ()
         {
@@ -26,61 +23,56 @@ namespace NeoCasual.GoingHyper.Inputs
             Input.multiTouchEnabled = false;
         }
 
-        public void Update ()
+        public void Update (float deltaTime)
         {
             if (Input.GetMouseButtonDown (0))
             {
-                StartSwipe ();
+                StartHold ();
             }
 
             if (Input.GetMouseButton (0))
             {
-                Swiping ();
+                Holding (deltaTime);
             }
 
             if (Input.GetMouseButtonUp (0))
             {
-                FinishSwipe ();
+                FinishHold ();
             }
         }
 
-        private void StartSwipe ()
+        private void StartHold ()
         {
-            _isSwiping = false;
-            _mouseOrigin = Input.mousePosition;
+            _isHolding = false;
+            _holdingPreTime = 0f;
         }
 
-        private void Swiping ()
+        private void Holding (float deltaTime)
         {
-            _mousePos = Input.mousePosition;
+            _holdingPreTime += Time.deltaTime;
 
-            _swipeDistance.x = (_mousePos.x - _mouseOrigin.x) / Screen.width;
-            _swipeDistance.y = (_mousePos.y - _mouseOrigin.y) / Screen.height;
-
-            bool isValidSwipe = Mathf.Abs (_swipeDistance.x) > _config.SwipeMinDetectDistance ||
-                Mathf.Abs (_swipeDistance.y) > _config.SwipeMinDetectDistance;
-
-            if (!_isSwiping && isValidSwipe)
+            bool isValidHold = _holdingPreTime > _config.HoldMinDetectTime;
+            if (!_isHolding && isValidHold)
             {
-                _isSwiping = true;
-                OnStartSwiping?.Invoke (_mousePos);
+                _isHolding = true;
+                OnStartHolding?.Invoke ();
             }
 
-            if (_isSwiping)
+            if (_isHolding)
             {
-                OnSwiping?.Invoke (_mousePos, _swipeDistance);
+                OnHolding?.Invoke (deltaTime);
             }
         }
 
-        private void FinishSwipe ()
+        private void FinishHold ()
         {
-            if (!_isSwiping)
+            if (!_isHolding)
             {
                 return;
             }
 
-            _isSwiping = false;
-            OnFinishSwiping?.Invoke (_mousePos);
+            _isHolding = false;
+            OnFinishHolding?.Invoke ();
         }
     }
 }
